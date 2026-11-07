@@ -82,6 +82,14 @@ test.describe("appearance preferences", () => {
     );
   });
 
+  test("lists confirmed technologies and the endurance racing background", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("listitem").filter({ hasText: "Python" })).toBeVisible();
+    await expect(page.getByRole("listitem").filter({ hasText: /Angular/ })).toBeVisible();
+    await expect(page.getByText("more than 20 marathons and longer races")).toBeVisible();
+    await expect(page.getByText("several Ironman triathlons")).toBeVisible();
+  });
+
   test("keeps theme and accent controls in the header bar", async ({ page }) => {
     await page.goto("/");
     const header = page.locator("header.topbar");
