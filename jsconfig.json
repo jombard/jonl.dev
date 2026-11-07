@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "noEmit": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
+    "maxNodeModuleJsDepth": 0,
+    "lib": ["ES2022", "DOM"]
+  },
+  "files": ["appearance.js"]
+}

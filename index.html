@@ -1,110 +1,167 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jon Lombard | Developer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Helvetica,Arial,sans-serif;
-            line-height: 1.75rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        p {
-            margin-bottom: 1rem;
-        }
-
-        a {
-            color: black;
-        }
-
-        .page-wrapper {
-            padding: 20px;
-            max-width: 700px;
-        }
-
-        .profile {
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-
-        .site-logo img {
-            float: right;
-            max-width: 70px;
-            border-radius: 50%;
-        }
-
-        .main-content {
-            clear: both;
-        }
-
-        .lead {
-            font-size: 1.2rem;
-            margin-bottom: 0;
-        }
-
-        @media only screen and (min-width: 500px) {
-        h1 {
-            font-size: 3.5rem;
-        }
-
-        .page-wrapper {
-            margin: 80px auto;
-        }
-
-        .pull-left {
-            float: left;
-        }
-
-        .profile {
-            text-align: center;
-        }
-
-        .site-logo img {
-            float: none;
-            max-width: 200px;
-            margin-bottom: 1rem;
-        }
-
-        .main-content {
-            padding-left: 4rem;
-            margin-left: 200px;
-            clear: none;
-        }
-        }
-    </style>
+    <title>Jon Lombard | Independent senior developer</title>
+    <meta name="description" content="UK-based independent senior developer. Long-term product ownership, careful changes to existing systems, and agent-assisted engineering with the developer still accountable.">
+    <link rel="canonical" href="https://jonl.dev/">
+    <meta name="theme-color" content="#f6f4ef">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jonl.dev/">
+    <meta property="og:title" content="Jon Lombard | Independent senior developer">
+    <meta property="og:description" content="UK-based independent senior developer. Long-term product ownership, careful changes to existing systems, and agent-assisted engineering with the developer still accountable.">
+    <meta property="og:image" content="https://jonl.dev/jonlombard.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Jon Lombard | Independent senior developer">
+    <meta name="twitter:description" content="UK-based independent senior developer. Long-term product ownership and careful changes to existing systems.">
+    <link rel="icon" href="jonlombard.jpg">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        (function () {
+            var THEME_KEY = "jonl.dev:theme";
+            var ACCENT_KEY = "jonl.dev:accent";
+            var ACCENTS = ["azure", "teal", "amber", "rose", "violet", "lime"];
+            try {
+                var theme = localStorage.getItem(THEME_KEY);
+                if (theme !== "light" && theme !== "dark") {
+                    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                }
+                var accent = localStorage.getItem(ACCENT_KEY);
+                if (ACCENTS.indexOf(accent) === -1) {
+                    accent = "azure";
+                }
+                document.documentElement.setAttribute("data-theme", theme);
+                document.documentElement.setAttribute("data-accent", accent);
+                document.documentElement.style.colorScheme = theme;
+            } catch (error) {
+                document.documentElement.setAttribute("data-theme", "light");
+                document.documentElement.setAttribute("data-accent", "azure");
+            }
+        })();
+    </script>
 </head>
 <body>
-    <div class="page-wrapper">
-        <div>
-            <div class="pull-left profile">
-                <a href="/" class="site-logo">
-                <img src="jonlombard.jpg" alt="Jon Lombard giving a talk">
-                </a>
-                <div>
-                    <strong class="lead">Jon Lombard</strong><br/>
-                    <em>Developer</em>
-                </div>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page">
+        <header class="site-header">
+            <a class="identity" href="/">
+                <img src="jonlombard.jpg" width="370" height="370" alt="Jon Lombard speaking during a talk">
+                <span class="identity-text">
+                    <span class="identity-name">Jon Lombard</span>
+                    <span class="identity-role">Independent senior developer</span>
+                </span>
+            </a>
+            <div class="appearance">
+                <fieldset class="control-group">
+                    <legend class="control-label">Theme</legend>
+                    <div class="segmented">
+                        <label class="segment">
+                            <input type="radio" name="theme" value="light">
+                            Light
+                        </label>
+                        <label class="segment">
+                            <input type="radio" name="theme" value="dark">
+                            Dark
+                        </label>
+                    </div>
+                </fieldset>
+                <fieldset class="control-group">
+                    <legend class="control-label">Accent</legend>
+                    <div class="swatches">
+                        <label class="swatch swatch-azure">
+                            <input type="radio" name="accent" value="azure">
+                            <span class="visually-hidden">Azure accent</span>
+                        </label>
+                        <label class="swatch swatch-teal">
+                            <input type="radio" name="accent" value="teal">
+                            <span class="visually-hidden">Teal accent</span>
+                        </label>
+                        <label class="swatch swatch-amber">
+                            <input type="radio" name="accent" value="amber">
+                            <span class="visually-hidden">Amber accent</span>
+                        </label>
+                        <label class="swatch swatch-rose">
+                            <input type="radio" name="accent" value="rose">
+                            <span class="visually-hidden">Rose accent</span>
+                        </label>
+                        <label class="swatch swatch-violet">
+                            <input type="radio" name="accent" value="violet">
+                            <span class="visually-hidden">Violet accent</span>
+                        </label>
+                        <label class="swatch swatch-lime">
+                            <input type="radio" name="accent" value="lime">
+                            <span class="visually-hidden">Lime accent</span>
+                        </label>
+                    </div>
+                </fieldset>
             </div>
-            <div class="main-content">
-                <h1>Hi</h1>
-                <p>Welcome to my website. I am a full stack web developer. I help businesses with their web applications. For fun I enjoy being active outdoors, reading, solving problems and building things.</p>
-                <div>
-                    <a href="mailto:hello@integrablue.co.uk" class="links">hello@integrablue.co.uk</a>
-                    <a href="https://github.com/jombard" class="links" rel="nofollow norefer">https://github.com/jombard</a>
+        </header>
+
+        <main id="main">
+            <h1>I take long-term ownership of product software.</h1>
+            <p class="lead">UK-based independent senior developer. I have been developing since 2007 and contracting remotely since 2014. I work across backend and frontend, databases, infrastructure, automated testing and CI/CD.</p>
+            <p>The attribute I trust most is that I enjoy learning. That is not a slogan. It is how I do the job: sit with the system you already have, learn how people actually use it, and turn that understanding into a small change worth shipping.</p>
+
+            <section aria-labelledby="how-heading">
+                <h2 id="how-heading">How I work</h2>
+                <p>I talk directly with stakeholders. I would rather ask a precise question than build the wrong thing. Needs get translated into small, deliverable changes — modernising what exists, not starting from a blank page because a new stack is fashionable.</p>
+                <ul class="work-list">
+                    <li>Adapt tools to the problem. I do not chase trends for their own sake.</li>
+                    <li>Test actual behaviour, not only the path that happens to be easy to script.</li>
+                    <li>Preserve existing data. It is part of the product.</li>
+                    <li>Communicate clearly and stay with the work as a reliable ongoing owner.</li>
+                    <li>Engineer with cost in mind: understand what the system needs, and avoid running more cloud than that.</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="strengths-heading">
+                <h2 id="strengths-heading">Strengths</h2>
+                <ul class="strength-list">
+                    <li>Long-term end-to-end product ownership, from a conversation through to a tested change.</li>
+                    <li>Backend and frontend together.</li>
+                    <li>Databases, infrastructure, automated testing and CI/CD.</li>
+                    <li>Authentication and identity integration.</li>
+                    <li>Modernising systems people already depend on, including making them cheaper to run where the waste is real.</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="tech-heading">
+                <h2 id="tech-heading">Technologies</h2>
+                <p>I use what the work needs. The professional stack I have used in production is:</p>
+                <ul class="stack-list">
+                    <li>C# / .NET, from Framework through .NET 8</li>
+                    <li>SQL Server</li>
+                    <li>Vue and Nuxt</li>
+                    <li>TypeScript</li>
+                    <li>Azure and Terraform</li>
+                    <li>Authentication and identity integration</li>
+                    <li>Cypress</li>
+                    <li>xUnit, MSTest and Moq</li>
+                    <li>Azure DevOps</li>
+                </ul>
+                <p>On personal web and Android delivery I have also used TypeScript, Cloudflare Workers, R2 and Capgo. Those are hands-on tools I have shipped with; they are not a substitute for the core professional stack above.</p>
+            </section>
+
+            <section aria-labelledby="agents-heading">
+                <h2 id="agents-heading">Coding with agents</h2>
+                <p>I use Cursor and other coding agents as part of ordinary engineering: a clear brief, a task breakdown, a review, and verification of real user flows. They are useful on well-specified work. I remain responsible for architecture, correctness and maintainability. I do not treat generated code as finished because it compiles, and I do not claim agents make delivery magically faster.</p>
+            </section>
+
+            <section aria-labelledby="contact-heading">
+                <h2 id="contact-heading">Get in touch</h2>
+                <p>If you need a senior developer to own a product, modernise a system, or stay with a codebase for the long haul, email me.</p>
+                <div class="contact-links">
+                    <a class="button" href="mailto:hello@integrablue.co.uk">hello@integrablue.co.uk</a>
+                    <a href="https://github.com/jombard" rel="noopener noreferrer">github.com/jombard</a>
                 </div>
-            </div>
-        </div>
+                <p class="muted">Outside work I run, volunteer at parkrun, and I am learning piano and Real Tennis.</p>
+            </section>
+        </main>
     </div>
+    <script type="module">
+        import { initAppearance } from "./appearance.js";
+        initAppearance();
+    </script>
 </body>
 </html>

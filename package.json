@@ -1,0 +1,22 @@
+{
+  "name": "jonl.dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run && playwright test",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "lint": "eslint . && html-validate index.html",
+    "typecheck": "tsc -p jsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.56.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.4.0",
+    "happy-dom": "^20.0.8",
+    "html-validate": "^9.7.1",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
