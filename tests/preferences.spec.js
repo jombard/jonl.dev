@@ -85,17 +85,23 @@ test.describe("appearance preferences", () => {
   test("lists confirmed technologies and the endurance racing background", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("listitem").filter({ hasText: "Python" })).toBeVisible();
-    await expect(page.getByRole("listitem").filter({ hasText: /Angular/ })).toBeVisible();
+    await expect(page.getByRole("listitem").filter({ hasText: /Angular and React/ })).toBeVisible();
     await expect(page.getByText("more than 20 marathons and longer races")).toBeVisible();
     await expect(page.getByText("several Ironman triathlons")).toBeVisible();
+    await expect(
+      page.getByText("I recently started learning piano and have taken up the historic game of Real Tennis."),
+    ).toBeVisible();
   });
 
-  test("keeps theme and accent controls in the header bar", async ({ page }) => {
+  test("keeps theme and accent controls visible in the desktop header", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
     const header = page.locator("header.topbar");
     await expect(header.getByRole("link", { name: "Jon Lombard" })).toBeVisible();
+    await expect(header.getByRole("button", { name: "Appearance" })).toBeHidden();
     await expect(header.getByRole("radio", { name: "Light" })).toBeVisible();
     await expect(header.getByRole("radio", { name: "Azure accent" })).toBeVisible();
+    await expect(header.getByText("Theme", { exact: true })).toBeVisible();
     await expect(page.locator("main").getByRole("radio")).toHaveCount(0);
   });
 
@@ -157,18 +163,61 @@ test.describe("appearance preferences", () => {
     }
   }
 
-  test("header bar stays usable at a mobile width", async ({ page }) => {
+  test("hides appearance controls behind a closed menu on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
     const header = page.locator("header.topbar");
+    const toggle = header.getByRole("button", { name: "Appearance" });
+    await expect(toggle).toBeVisible();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await expect(header.getByRole("radio", { name: "Light" })).toBeHidden();
+    await expect(header.getByRole("radio", { name: "Azure accent" })).toBeHidden();
+    const closedBox = await header.boundingBox();
+    expect(closedBox?.height ?? 99).toBeLessThan(80);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1)).toBe(false);
+  });
+
+  test("opens mobile appearance controls, changes them, and keeps them after close and reopen", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    const header = page.locator("header.topbar");
+    const toggle = header.getByRole("button", { name: "Appearance" });
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
     await expect(header.getByRole("radio", { name: "Light" })).toBeVisible();
-    await expect(header.getByRole("radio", { name: "Lime accent" })).toBeVisible();
-    const box = await header.boundingBox();
-    expect(box).toBeTruthy();
-    expect(box?.height ?? 99).toBeLessThan(120);
+    await expect(header.getByRole("radio", { name: "Azure accent" })).toBeVisible();
+    await expect(header.getByText("Theme", { exact: true })).toBeVisible();
+    await expect(header.getByText("Accent", { exact: true })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1)).toBe(false);
+
     await header.getByRole("radio", { name: "Dark" }).click();
     await header.getByRole("radio", { name: "Violet accent" }).click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     await expect(page.locator("html")).toHaveAttribute("data-accent", "violet");
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await expect(header.getByRole("radio", { name: "Dark" })).toBeHidden();
+
+    await toggle.click();
+    await expect(header.getByRole("radio", { name: "Dark" })).toBeChecked();
+    await expect(header.getByRole("radio", { name: "Violet accent" })).toBeChecked();
+    await page.reload();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await expect(page.locator("html")).toHaveAttribute("data-accent", "violet");
+    await expect(page.getByRole("button", { name: "Appearance" })).toHaveAttribute("aria-expanded", "false");
+  });
+
+  test("closes the mobile appearance menu with Escape", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+    const toggle = page.getByRole("button", { name: "Appearance" });
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+    await page.keyboard.press("Escape");
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await expect(toggle).toBeFocused();
+    await expect(page.getByRole("radio", { name: "Light" })).toBeHidden();
   });
 });

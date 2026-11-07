@@ -6,6 +6,7 @@ import {
   THEME_KEY,
   applyAppearance,
   initAppearance,
+  initAppearanceMenu,
   isAccent,
   isTheme,
   persistAccent,
@@ -177,5 +178,69 @@ describe("initAppearance", () => {
     expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
     expect(document.documentElement.getAttribute("data-accent")).toBe("amber");
     expect(controls.querySelectorAll('input[name="accent"]:checked')).toHaveLength(1);
+  });
+});
+
+describe("initAppearanceMenu", () => {
+  function mountMenu() {
+    document.body.innerHTML = `
+      <button type="button" data-appearance-toggle aria-expanded="false" aria-controls="appearance-controls">Appearance</button>
+      <div id="appearance-controls" data-appearance-panel>
+        <input type="radio" name="theme" value="light">
+      </div>
+    `;
+    return {
+      toggle: document.querySelector("[data-appearance-toggle]"),
+      panel: document.querySelector("[data-appearance-panel]"),
+    };
+  }
+
+  function windowStub({ mobile }) {
+    return {
+      matchMedia: (query) => ({
+        matches: query.includes("max-width") ? mobile : false,
+        addEventListener() {},
+      }),
+    };
+  }
+
+  it("keeps the panel open on desktop and hides the toggle", () => {
+    const { toggle, panel } = mountMenu();
+    if (!(toggle instanceof HTMLElement) || !(panel instanceof HTMLElement)) {
+      throw new Error("expected menu nodes");
+    }
+    const menu = initAppearanceMenu({
+      toggle,
+      panel,
+      windowObject: windowStub({ mobile: false }),
+    });
+    expect(toggle.hidden).toBe(true);
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    expect(panel.inert).toBe(false);
+    expect(menu.isMobile()).toBe(false);
+  });
+
+  it("starts closed on mobile and opens from the toggle", () => {
+    const { toggle, panel } = mountMenu();
+    if (!(toggle instanceof HTMLElement) || !(panel instanceof HTMLElement)) {
+      throw new Error("expected menu nodes");
+    }
+    const menu = initAppearanceMenu({
+      toggle,
+      panel,
+      windowObject: windowStub({ mobile: true }),
+    });
+    expect(toggle.hidden).toBe(false);
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    expect(panel.inert).toBe(true);
+
+    toggle.click();
+    expect(menu.isOpen()).toBe(true);
+    expect(toggle.getAttribute("aria-expanded")).toBe("true");
+    expect(panel.inert).toBe(false);
+
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    expect(menu.isOpen()).toBe(false);
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
   });
 });

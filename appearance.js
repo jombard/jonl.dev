@@ -124,6 +124,90 @@ function syncChecked(root, selector, value) {
   });
 }
 
+const MOBILE_LAYOUT_QUERY = "(max-width: 639px)";
+
+/**
+ * @param {Pick<Window, "matchMedia"> | undefined} windowObject
+ * @param {string} query
+ * @returns {MediaQueryList | { matches: boolean }}
+ */
+function queryMedia(windowObject, query) {
+  if (windowObject && windowObject.matchMedia) {
+    return windowObject.matchMedia(query);
+  }
+  return { matches: false };
+}
+
+/**
+ * @param {object} options
+ * @param {HTMLElement} options.toggle
+ * @param {HTMLElement} options.panel
+ * @param {Pick<Window, "matchMedia">} [options.windowObject]
+ */
+export function initAppearanceMenu({ toggle, panel, windowObject = window }) {
+  const layoutMedia = queryMedia(windowObject, MOBILE_LAYOUT_QUERY);
+  let open = false;
+
+  const isMobile = () => Boolean(layoutMedia.matches);
+
+  const sync = () => {
+    const mobile = isMobile();
+    if (!mobile) {
+      open = false;
+    }
+    toggle.hidden = !mobile;
+    toggle.setAttribute("aria-expanded", mobile && open ? "true" : "false");
+    panel.inert = mobile && !open;
+  };
+
+  /** @param {boolean} next */
+  const setOpen = (next) => {
+    open = next && isMobile();
+    sync();
+  };
+
+  if (toggle.dataset.menuBound !== "true") {
+    toggle.dataset.menuBound = "true";
+    toggle.addEventListener("click", () => {
+      setOpen(!open);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !open || !isMobile()) {
+        return;
+      }
+      event.preventDefault();
+      setOpen(false);
+      toggle.focus();
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (!open || !isMobile()) {
+        return;
+      }
+      const target = event.target;
+      if (!(target instanceof Node)) {
+        return;
+      }
+      if (toggle.contains(target) || panel.contains(target)) {
+        return;
+      }
+      setOpen(false);
+    });
+    if ("addEventListener" in layoutMedia) {
+      layoutMedia.addEventListener("change", () => {
+        setOpen(false);
+      });
+    }
+  }
+
+  sync();
+  return {
+    /** @param {boolean} next */
+    setOpen,
+    isOpen: () => open,
+    isMobile,
+  };
+}
+
 /**
  * @param {object} [options]
  * @param {HTMLElement} [options.root]
@@ -195,6 +279,12 @@ export function initAppearance(options = {}) {
       theme = resolveTheme(null, event.matches);
       paint();
     });
+  }
+
+  const toggle = controls.querySelector("[data-appearance-toggle]");
+  const panel = controls.querySelector("[data-appearance-panel]");
+  if (toggle instanceof HTMLElement && panel instanceof HTMLElement) {
+    initAppearanceMenu({ toggle, panel, windowObject });
   }
 
   paint();
