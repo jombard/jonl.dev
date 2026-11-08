@@ -107,6 +107,9 @@ test.describe("appearance preferences", () => {
       "mailto:hello@integrablue.co.uk",
     );
     await expect(page.getByText(".NET Framework application")).toBeVisible();
+    await expect(
+      page.getByText("I've worked on spaghetti codebases and turned them into lasagna: clear layers with distinct responsibilities."),
+    ).toBeVisible();
     await expect(page.getByText("Azure costs had crept up")).toBeVisible();
     await expect(page.getByText(/£10k|10,000|zero downtime/i)).toHaveCount(0);
     await expect(page.getByRole("heading", { name: "Coding with agents" })).toBeVisible();
