@@ -82,12 +82,22 @@ test.describe("appearance preferences", () => {
     );
   });
 
-  test("uses a name-led hero, grouped technical experience, and outside-work facts", async ({ page }) => {
+  test("uses a name-led hero, original intro, grouped technical experience, and contact", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     await expect(page.getByRole("heading", { level: 1, name: "Jon Lombard" })).toBeVisible();
     await expect(page.locator(".hero-role")).toHaveText("Independent Senior Developer");
     await expect(page.getByText("I enjoy learning the system you already have")).toHaveCount(0);
+    await expect(page.locator("main > p").first()).toHaveText(
+      "I am a developer with 2 decades of experience working in global organisations delivering high quality products.",
+    );
+    await expect(page.getByText("Welcome to my website")).toHaveCount(0);
+    await expect(page.locator("main > p")).toHaveCount(2);
+    await expect(page.locator("main > p").nth(1)).toHaveText(
+      "I suggest innovative approaches, help save costs, keep security front of mind and collaborate with stakeholders at every level.",
+    );
+    await expect(page.getByText("I have worked in a global organisation")).toHaveCount(0);
+    await expect(page.getByText("I enjoy learning my way into a codebase")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: "Technical experience" })).toBeVisible();
     await expect(page.getByText("A selection of tools I've used in production.")).toBeVisible();
     await expect(page.getByText("I'm happy to learn new tools.")).toBeVisible();
@@ -97,35 +107,23 @@ test.describe("appearance preferences", () => {
     await expect(page.locator("dd").filter({ hasText: /Angular, React/ })).toBeVisible();
     await expect(page.locator("dd").filter({ hasText: /\.NET \/ C#/ })).toBeVisible();
     await expect(page.getByText(/through \.NET 8/)).toHaveCount(0);
-    await expect(page.getByRole("heading", { name: "Outside work" })).toBeVisible();
-    await expect(page.getByText("more than 20 marathons and longer races")).toBeVisible();
-    await expect(page.getByText("several Ironman triathlons")).toBeVisible();
-    await expect(page.getByText("I volunteer on a core team")).toBeVisible();
-    await expect(
-      page.getByText("I recently started learning piano and have taken up the historic game of Real Tennis."),
-    ).toBeVisible();
     await expect(page.getByRole("heading", { name: "Discuss your project" })).toBeVisible();
     await expect(page.getByRole("link", { name: "Discuss your project" })).toHaveAttribute(
       "href",
       "mailto:hello@integrablue.co.uk",
     );
-    await expect(page.getByText(".NET Framework application")).toBeVisible();
-    await expect(
-      page.getByText("I've worked on spaghetti codebases and turned them into lasagna: clear layers with distinct responsibilities."),
-    ).toBeVisible();
-    await expect(page.getByText("Azure costs had crept up")).toBeVisible();
-    await expect(page.getByText("I took on a long-standing search problem in an established platform.")).toBeVisible();
-    await expect(page.getByText("Logs showed large searches completing in around two seconds")).toBeVisible();
-    await expect(page.getByText("I redesigned a client's confirmation emails")).toBeVisible();
     await expect(page.getByText("I'm interested in long-term involvement")).toBeVisible();
     await expect(page.getByText("I'm open to contract work and technical partnerships")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Some of the work" })).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Coding with agents" })).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Outside work" })).toHaveCount(0);
+    await expect(page.getByText("software factory")).toHaveCount(0);
+    await expect(page.getByText("spaghetti codebases")).toHaveCount(0);
+    await expect(
+      page.getByText("I recently started learning piano and have taken up the historic game of Real Tennis."),
+    ).toHaveCount(0);
     await expect(page.getByRole("heading", { name: /case study/i })).toHaveCount(0);
     await expect(page.getByText(/£10k|10,000|zero downtime/i)).toHaveCount(0);
-    await expect(page.getByRole("heading", { name: "Coding with agents" })).toBeVisible();
-    await expect(page.getByText(/agentic coding/)).toBeVisible();
-    await expect(page.getByText("software factory")).toBeVisible();
-    await expect(page.getByText("has made me more productive")).toBeVisible();
-    await expect(page.getByText("software development fundamentals more important than ever")).toBeVisible();
   });
 
   test("keeps only theme and accent controls in the desktop header", async ({ page }) => {
