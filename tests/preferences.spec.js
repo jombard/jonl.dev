@@ -109,6 +109,11 @@ test.describe("appearance preferences", () => {
     await expect(page.getByText(".NET Framework application")).toBeVisible();
     await expect(page.getByText("Azure costs had crept up")).toBeVisible();
     await expect(page.getByText(/£10k|10,000|zero downtime/i)).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Coding with agents" })).toBeVisible();
+    await expect(page.getByText(/agentic coding/)).toBeVisible();
+    await expect(page.getByText("software factory")).toBeVisible();
+    await expect(page.getByText("has made me more productive")).toBeVisible();
+    await expect(page.getByText("software development fundamentals more important than ever")).toBeVisible();
   });
 
   test("keeps only theme and accent controls in the desktop header", async ({ page }) => {
