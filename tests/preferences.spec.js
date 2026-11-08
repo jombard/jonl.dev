@@ -89,8 +89,12 @@ test.describe("appearance preferences", () => {
     await expect(page.locator(".hero-role")).toHaveText("Independent Senior Developer");
     await expect(page.getByText("I enjoy learning the system you already have")).toHaveCount(0);
     await expect(page.locator("main > p").first()).toHaveText(
-      "Welcome to my website. I am a full stack web developer. I help businesses with their web applications. For fun I enjoy being active outdoors, reading, solving problems and building things.",
+      "Welcome to my website. I am a full stack web developer. I help businesses with their web applications. For fun I enjoy being active outdoors, solving problems and building things.",
     );
+    await expect(page.locator("main > p").nth(1)).toHaveText(
+      "I have worked in a global organisation, delivering a number of projects for stakeholders at all levels and all manner of deadlines.",
+    );
+    await expect(page.getByText("I enjoy learning my way into a codebase")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: "Technical experience" })).toBeVisible();
     await expect(page.getByText("A selection of tools I've used in production.")).toBeVisible();
     await expect(page.getByText("I'm happy to learn new tools.")).toBeVisible();
