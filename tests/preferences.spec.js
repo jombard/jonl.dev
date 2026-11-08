@@ -90,6 +90,9 @@ test.describe("appearance preferences", () => {
     await expect(page.getByText("I enjoy learning the system you already have")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: "Technical experience" })).toBeVisible();
     await expect(page.getByText("A selection of tools I've used in production.")).toBeVisible();
+    await expect(page.getByText("I'm happy to learn new tools.")).toBeVisible();
+    await expect(page.getByText("I want to understand the problem first, then choose the technology that fits.")).toBeVisible();
+    await expect(page.getByText("picking up a system I haven't used in a while")).toHaveCount(0);
     await expect(page.locator("dd").filter({ hasText: /Python/ })).toBeVisible();
     await expect(page.locator("dd").filter({ hasText: /Angular, React/ })).toBeVisible();
     await expect(page.locator("dd").filter({ hasText: /\.NET \/ C#/ })).toBeVisible();
