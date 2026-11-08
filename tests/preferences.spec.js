@@ -92,9 +92,8 @@ test.describe("appearance preferences", () => {
       "I am a developer with 2 decades of experience working in global organisations delivering high quality products.",
     );
     await expect(page.getByText("Welcome to my website")).toHaveCount(0);
-    await expect(page.locator("main > p").nth(1)).toHaveText(
-      "I have worked in a global organisation, delivering a number of projects for stakeholders at all levels and all manner of deadlines.",
-    );
+    await expect(page.locator("main > p")).toHaveCount(1);
+    await expect(page.getByText("I have worked in a global organisation")).toHaveCount(0);
     await expect(page.getByText("I enjoy learning my way into a codebase")).toHaveCount(0);
     await expect(page.getByRole("heading", { name: "Technical experience" })).toBeVisible();
     await expect(page.getByText("A selection of tools I've used in production.")).toBeVisible();
