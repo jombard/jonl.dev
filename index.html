@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jon Lombard | Independent senior developer</title>
-    <meta name="description" content="UK-based independent senior developer. I contract remotely, learn the system in front of me, and ship careful changes.">
+    <title>Jon Lombard | Independent Senior Developer</title>
+    <meta name="description" content="UK-based independent senior developer. I improve and maintain production software, remotely, since 2014.">
     <link rel="canonical" href="https://jonl.dev/">
     <meta name="theme-color" content="#f6f4ef">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jonl.dev/">
-    <meta property="og:title" content="Jon Lombard | Independent senior developer">
-    <meta property="og:description" content="UK-based independent senior developer. I contract remotely, learn the system in front of me, and ship careful changes.">
+    <meta property="og:title" content="Jon Lombard | Independent Senior Developer">
+    <meta property="og:description" content="UK-based independent senior developer. I improve and maintain production software, remotely, since 2014.">
     <meta property="og:image" content="https://jonl.dev/jonlombard.jpg">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Jon Lombard | Independent senior developer">
-    <meta name="twitter:description" content="UK-based independent senior developer. I contract remotely and ship careful changes to systems people already use.">
+    <meta name="twitter:title" content="Jon Lombard | Independent Senior Developer">
+    <meta name="twitter:description" content="UK-based independent senior developer. I improve and maintain production software, remotely, since 2014.">
     <link rel="icon" href="jonlombard.jpg">
     <link rel="stylesheet" href="styles.css">
     <script>
@@ -45,7 +45,6 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="topbar">
         <div class="topbar-inner">
-            <a class="site-name" href="/">Jon Lombard</a>
             <button type="button" class="appearance-toggle" data-appearance-toggle aria-expanded="false" aria-controls="appearance-controls">
                 Appearance
             </button>
@@ -98,57 +97,64 @@
 
     <div class="page">
         <main id="main">
-            <div class="intro">
+            <section class="hero">
                 <img src="jonlombard.jpg" width="370" height="370" alt="Jon Lombard speaking during a talk">
-                <p class="identity-role">Independent senior developer</p>
-            </div>
-
-            <h1>I enjoy learning the system you already have</h1>
-            <p class="lead">I am a UK-based independent senior developer. I have been writing software since 2007 and contracting remotely since 2014.</p>
-            <p>I spend time on your live system and watch how people use it. Then I pick the next change that is worth making. I cover the server, the screens, the database, the infrastructure and the tests.</p>
-
-            <section aria-labelledby="how-heading">
-                <h2 id="how-heading">How I work</h2>
-                <p>I talk to the people who need the change. A precise question saves a wasted build. Then I make something small enough to ship, usually by changing the system you already run.</p>
-                <p>I pick tools that fit the problem. I leave existing data alone. I look at the cloud bill and cut what is sitting idle. I tell you where things stand, in plain English, and I am still here after the merge.</p>
+                <div class="hero-text">
+                    <h1>Jon Lombard</h1>
+                    <p class="hero-role">Independent Senior Developer</p>
+                </div>
             </section>
 
-            <section aria-labelledby="scope-heading">
-                <h2 id="scope-heading">What I take on</h2>
-                <p>The work is usually both sides of a web product: screens and server, sign-in, the database, and the tests in the pipeline. I also take on older systems that have become hard to change or more expensive than they need to be.</p>
+            <p>I've been writing software since 2007 and contracting remotely from the UK since 2014. Most of it is improving software that's already in production and keeping it in good shape: the API, the UI, the database, infrastructure, tests and CI.</p>
+            <p>I enjoy learning my way into a codebase. If the domain is new, I spend time on how people actually use the thing, then change a small piece and ship it.</p>
+
+            <section aria-labelledby="work-heading">
+                <h2 id="work-heading">Some of the work</h2>
+                <p>One job was moving a long-lived .NET Framework application and its API onto modern .NET. Existing behaviour had to stay intact, so much of it was compatibility checks and repairing what the upgrade broke.</p>
+                <p>Another was an application whose Azure costs had crept up. I looked at what was actually running, simplified the infrastructure, and the spend came down.</p>
             </section>
 
             <section aria-labelledby="tech-heading">
-                <h2 id="tech-heading">Technologies</h2>
-                <p>In production I have used:</p>
-                <ul class="stack-list">
-                    <li>C# / .NET, from Framework through .NET 8</li>
-                    <li>SQL Server</li>
-                    <li>Vue, Nuxt, Angular and React</li>
-                    <li>TypeScript</li>
-                    <li>Python</li>
-                    <li>Azure and Terraform</li>
-                    <li>Authentication and identity integration</li>
-                    <li>Cypress</li>
-                    <li>xUnit, MSTest and Moq</li>
-                    <li>Azure DevOps</li>
-                </ul>
-                <p>For my own web and Android work I have used TypeScript, Cloudflare Workers, R2 and Capgo.</p>
+                <h2 id="tech-heading">Technical experience</h2>
+                <p>A selection of tools I've used in production. I work across stacks, and I'm used to picking up a system I haven't used in a while.</p>
+                <dl class="tech-groups">
+                    <div>
+                        <dt>Backend</dt>
+                        <dd>.NET / C#, SQL, Python</dd>
+                    </div>
+                    <div>
+                        <dt>Frontend</dt>
+                        <dd>JavaScript and TypeScript, Vue, Nuxt, Angular, React</dd>
+                    </div>
+                    <div>
+                        <dt>Cloud</dt>
+                        <dd>Azure, Terraform</dd>
+                    </div>
+                    <div>
+                        <dt>Testing and CI</dt>
+                        <dd>Cypress, xUnit, MSTest, Moq, Azure DevOps</dd>
+                    </div>
+                </dl>
             </section>
 
             <section aria-labelledby="agents-heading">
                 <h2 id="agents-heading">Coding with agents</h2>
-                <p>I write a brief and split the work into tasks. I give a task to Cursor or another coding agent. I read what comes back and change anything I would not have written myself. I click through the real user flow before I treat it as done. The architecture and what we keep in the long run are my decisions.</p>
+                <p>I use Cursor and other coding agents on client work. I'll write a brief, split the work, and hand a task over. The review is for correctness, maintainability and whether it fits the system. I still click through the real user flow, and the decisions stay with me.</p>
+            </section>
+
+            <section aria-labelledby="outside-heading">
+                <h2 id="outside-heading">Outside work</h2>
+                <p>I've finished more than 20 marathons and longer races, plus several Ironman triathlons. I've been a parkrunner for years and I volunteer on a core team. I recently started learning piano and have taken up the historic game of Real Tennis.</p>
             </section>
 
             <section aria-labelledby="contact-heading">
-                <h2 id="contact-heading">Get in touch</h2>
-                <p>Email me if you need a senior developer for a product you already have, or one you need to keep moving.</p>
+                <h2 id="contact-heading">Discuss your project</h2>
+                <p>If you've got a product that needs a senior developer, email me.</p>
                 <div class="contact-links">
-                    <a class="button" href="mailto:hello@integrablue.co.uk">hello@integrablue.co.uk</a>
+                    <a class="button" href="mailto:hello@integrablue.co.uk">Discuss your project</a>
+                    <a href="mailto:hello@integrablue.co.uk">hello@integrablue.co.uk</a>
                     <a href="https://github.com/jombard" rel="noopener noreferrer">github.com/jombard</a>
                 </div>
-                <p>Away from work I have finished more than 20 marathons and longer races, plus several Ironman triathlons. I got there by training week after week for a long time. I have been a parkrunner for years and I volunteer on a core team. I recently started learning piano and have taken up the historic game of Real Tennis.</p>
             </section>
         </main>
     </div>

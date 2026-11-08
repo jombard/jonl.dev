@@ -82,22 +82,42 @@ test.describe("appearance preferences", () => {
     );
   });
 
-  test("lists confirmed technologies and the endurance racing background", async ({ page }) => {
+  test("uses a name-led hero, grouped technical experience, and outside-work facts", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("listitem").filter({ hasText: "Python" })).toBeVisible();
-    await expect(page.getByRole("listitem").filter({ hasText: /Angular and React/ })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    await expect(page.getByRole("heading", { level: 1, name: "Jon Lombard" })).toBeVisible();
+    await expect(page.locator(".hero-role")).toHaveText("Independent Senior Developer");
+    await expect(page.getByText("I enjoy learning the system you already have")).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Technical experience" })).toBeVisible();
+    await expect(page.getByText("A selection of tools I've used in production.")).toBeVisible();
+    await expect(page.locator("dd").filter({ hasText: /Python/ })).toBeVisible();
+    await expect(page.locator("dd").filter({ hasText: /Angular, React/ })).toBeVisible();
+    await expect(page.locator("dd").filter({ hasText: /\.NET \/ C#/ })).toBeVisible();
+    await expect(page.getByText(/through \.NET 8/)).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Outside work" })).toBeVisible();
     await expect(page.getByText("more than 20 marathons and longer races")).toBeVisible();
     await expect(page.getByText("several Ironman triathlons")).toBeVisible();
+    await expect(page.getByText("I volunteer on a core team")).toBeVisible();
     await expect(
       page.getByText("I recently started learning piano and have taken up the historic game of Real Tennis."),
     ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Discuss your project" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Discuss your project" })).toHaveAttribute(
+      "href",
+      "mailto:hello@integrablue.co.uk",
+    );
+    await expect(page.getByText(".NET Framework application")).toBeVisible();
+    await expect(page.getByText("Azure costs had crept up")).toBeVisible();
+    await expect(page.getByText(/£10k|10,000|zero downtime/i)).toHaveCount(0);
   });
 
-  test("keeps theme and accent controls visible in the desktop header", async ({ page }) => {
+  test("keeps only theme and accent controls in the desktop header", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
     const header = page.locator("header.topbar");
-    await expect(header.getByRole("link", { name: "Jon Lombard" })).toBeVisible();
+    await expect(header.getByRole("link")).toHaveCount(0);
+    await expect(header.getByRole("heading")).toHaveCount(0);
+    await expect(header).not.toContainText("Jon Lombard");
     await expect(header.getByRole("button", { name: "Appearance" })).toBeHidden();
     await expect(header.getByRole("radio", { name: "Light" })).toBeVisible();
     await expect(header.getByRole("radio", { name: "Azure accent" })).toBeVisible();
@@ -157,8 +177,8 @@ test.describe("appearance preferences", () => {
           expect(colours.heading).not.toBe(swatchRgb);
         }
 
-        const nameColour = await page.locator(".site-name").evaluate((el) => getComputedStyle(el).color);
-        expect(nameColour).toBe(headingRgb);
+        const h2Colour = await page.locator("h2").first().evaluate((el) => getComputedStyle(el).color);
+        expect(h2Colour).toBe(headingRgb);
       });
     }
   }
