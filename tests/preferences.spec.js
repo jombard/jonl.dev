@@ -111,6 +111,12 @@ test.describe("appearance preferences", () => {
       page.getByText("I've worked on spaghetti codebases and turned them into lasagna: clear layers with distinct responsibilities."),
     ).toBeVisible();
     await expect(page.getByText("Azure costs had crept up")).toBeVisible();
+    await expect(page.getByText("I took on a long-standing search problem in an established platform.")).toBeVisible();
+    await expect(page.getByText("Logs showed large searches completing in around two seconds")).toBeVisible();
+    await expect(page.getByText("I redesigned a client's confirmation emails")).toBeVisible();
+    await expect(page.getByText("I'm interested in long-term involvement")).toBeVisible();
+    await expect(page.getByText("I'm open to contract work and technical partnerships")).toBeVisible();
+    await expect(page.getByRole("heading", { name: /case study/i })).toHaveCount(0);
     await expect(page.getByText(/£10k|10,000|zero downtime/i)).toHaveCount(0);
     await expect(page.getByRole("heading", { name: "Coding with agents" })).toBeVisible();
     await expect(page.getByText(/agentic coding/)).toBeVisible();
@@ -131,6 +137,7 @@ test.describe("appearance preferences", () => {
     await expect(header.getByRole("radio", { name: "Azure accent" })).toBeVisible();
     await expect(header.getByText("Theme", { exact: true })).toBeVisible();
     await expect(page.locator("main").getByRole("radio")).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1)).toBe(false);
   });
 
   test("has no em dashes or en dashes in public copy or metadata", async ({ page }) => {
