@@ -89,8 +89,9 @@ test.describe("appearance preferences", () => {
     await expect(page.locator(".hero-role")).toHaveText("Independent Senior Developer");
     await expect(page.getByText("I enjoy learning the system you already have")).toHaveCount(0);
     await expect(page.locator("main > p").first()).toHaveText(
-      "Welcome to my website. I am a full stack web developer. I help businesses with their web applications. For fun I enjoy being active outdoors, solving problems and building things.",
+      "I am a developer with 2 decades of experience working in global organisations delivering high quality products.",
     );
+    await expect(page.getByText("Welcome to my website")).toHaveCount(0);
     await expect(page.locator("main > p").nth(1)).toHaveText(
       "I have worked in a global organisation, delivering a number of projects for stakeholders at all levels and all manner of deadlines.",
     );
